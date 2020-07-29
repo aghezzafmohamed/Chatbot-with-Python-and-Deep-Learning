@@ -1,0 +1,17 @@
+README.md
+setup.cfg
+setup.py
+wordnet/__init__.py
+wordnet/__pkginfo__.py
+wordnet/nn_words.py
+wordnet/tf_idf_generator.py
+wordnet/word_net.py
+wordnet.egg-info/PKG-INFO
+wordnet.egg-info/SOURCES.txt
+wordnet.egg-info/dependency_links.txt
+wordnet.egg-info/requires.txt
+wordnet.egg-info/top_level.txt
+wordnet/bin/__init__.py
+wordnet/bin/paint.py
+wordnet/models/__init__.py
+wordnet/models/word.py

@@ -1,0 +1,33 @@
+{"intents": [
+        {"tag": "salutation",
+         "patterns": ["Bonjour", "comment va tu ?", "tout va bien ?", "salut"],
+         "responses": ["oui, comment je peux vous aider!", "heureux de vous voir ! je peux vous aider", "Bonjour ! je peux vous aider"]
+         
+        },
+        {"tag": "revoir",
+         "patterns": ["au revoir", "on se voit apres", "a bien tot", "a la prochaine","non merci"],
+         "responses": ["on se voit apres ", "au revoir", "a la prochaine !"]
+         
+        },
+        {"tag": "admission",
+         "patterns": ["pourrais je etre admis au master ?", "possibilté d'etre admis au master", "chance d'admission au master ?", "admission master"],
+         "responses": ["d'accord vous voulez savoir d'etre admis dans l'un de nos master","d'accord"]
+         
+        },
+        {"tag": "demande",
+         "patterns": ["demande de stage", "lettre de stage", "demande stage","rediger une demande de stage ","lettre de stage"],
+         "responses": ["je comprends que vous voulez une demande de stage"]
+         
+        },
+        {"tag": "inscription",
+         "patterns": ["inscription","je veux m'inscrire ", "nouvelle inscription", "comment s'inscrire à votre faculté", "les pieces d'inscription","comment faire l'inscription"],
+         "responses": ["donnez moi vos cordonnés","veuillez me donnez votre ID et le mot de pass"]
+         
+        },
+        {"tag": "emplois",
+         "patterns": ["le planing","emplois du temps", "voir l'emplois du temps","s'il vous plait l'emplois du temps"],
+         "responses": ["emplois"]
+         
+        }
+   ]
+}
