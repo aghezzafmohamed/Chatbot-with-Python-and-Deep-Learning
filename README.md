@@ -1,11 +1,11 @@
 # Chatbot-with-Python-and-Deep-Learning
 ## Application
-<p> ChatBot that will help students in university. In order to reduce the response time and better retain the students of our faculty, a chatBot should report responses in real time with availability 24/24 and 7/7 days. able to interact with students in different mannerisms, behaving like a human(speech to text and text to speech) agent who answer student questions. This ChatBot offers several features:
-- Internship agreement
-- Modules notes
-- Registration and required conditions
-- The possibility of being admitted to the masters based on TCF scores, cover letter, letter of recommendation ...
-</p>
+<p> ChatBot that will help students in university. In order to reduce the response time and better retain the students of our faculty, a chatBot should report responses in real time with availability 24/24 and 7/7 days. able to interact with students in different mannerisms, behaving like a human(speech to text and text to speech) agent who answer student questions. This ChatBot offers several features: </p>
+<li> Internship agreement
+<li> Modules notes
+<li> Registration and required conditions
+<li> The possibility of being admitted to the masters based on TCF scores, cover letter, letter of recommendation ...
+<b>
 <img src="InterfacePrincipale.png">
 
 ###	Authentification
