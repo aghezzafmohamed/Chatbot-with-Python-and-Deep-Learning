@@ -17,7 +17,7 @@ class Send_email:
         server.starttls()
         path_to_pdf ="demandes/"+file
         message = f"Bonjour, {nom} \nSuite à votre demande veuillez trouver ci-joint les documents demandés. \nCordialement"
-        server.login('fsj.plateforme@gmail.com',"fseljadidaplateforme" )
+        server.login("email@gmail.com","password" )
         # Craft message (obj)
         msg = MIMEMultipart()
         msg['Subject'] = demande
