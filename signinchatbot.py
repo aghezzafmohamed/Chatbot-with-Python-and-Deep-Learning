@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Created on Tue Dec 14 16:51:08 2019
+Created on Tue Apr 01 09:01:02 2020
 
 @author: AGHEZZAF Mohamed & HAJJAJI Nassim
 """
@@ -11,10 +10,12 @@ from application import Application
 
 class SignIn(object):
     def connexion(self):
-            md =self.lineEdit_2.text()
-            id=self.lineEdit.text()
-            if id!="" and md!="":
-                if(id=="chatbot" and md=="chatbot"):
+            md = self.lineEdit_2.text()
+            id = self.lineEdit.text()
+            if id != "" and md != "":
+                #connexion to data base
+                if(id == "1411023210" and md == "chatbot"):
+                    #connexion to data base
                     print("valide")
                     self.window = QtWidgets.QMainWindow()
                     self.ui = Application()
@@ -216,7 +217,7 @@ class SignIn(object):
         self.lineEdit_2.setText(_translate("Form", ""))
         self.label_3.setText(_translate("Form", "Mot de passe"))
         self.lineEdit.setText(_translate("Form", ""))
-        self.label_4.setText(_translate("Form", "Identification"))
+        self.label_4.setText(_translate("Form", "CNE/Massar"))
         self.label_5.setText(_translate("Form", "Connexion"))
 
 

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 15 09:01:02 2019
+Created on Tue Mpr 10 19:30:03 2020
 
 @author: AGHEZZAF Mohamed & HAJJAJI Nassim
 """
+from Send_email import Send_email
+from help_chatbot import About
 import sys
 import os
 from gtts import gTTS
@@ -21,12 +23,14 @@ import tensorflow
 import random
 import json
 import docx
+from docx2pdf import convert
 from datetime import date
-from help_chatbot import About
+
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+
 
 class Application(object):       
     def lecture(self, message):
@@ -67,7 +71,6 @@ class Application(object):
                 self.words.extend(self.wrds)
                 self.docs_x.append(self.wrds)
                 self.docs_y.append(intent["tag"])
-        
             if intent["tag"] not in self.labels:
                 self.labels.append(intent["tag"])
         
@@ -136,7 +139,7 @@ class Application(object):
         X.rename({'Chance of Admit ': 'Chance of Admit', 'LOR ':'LOR'}, axis=1, inplace=True)
         X[['CGPA','GRE Score', 'TOEFL Score']] = scaler.fit_transform(X[['CGPA','GRE Score', 'TOEFL Score']])
         y_pred = self.lr.predict(X)
-        self.lecture("votre pourcentage d'etre admis est {0:.2%} ".format(y_pred[0]))
+        self.lecture("Votre pourcentage d'etre admis est {0:.2%} ".format(y_pred[0]))
         
         self.admission = False
         self.infoadmission = dict()
@@ -144,8 +147,8 @@ class Application(object):
         self.timeBreak()
         
     def timeBreak(self):
-        tZero=time.time()
-        t=tZero+10
+        tZero = time.time()
+        t = tZero+10
         while(True):
             if(t<time.time()):
                 self.lecture("Avez vous d'autres questions ?")
@@ -196,9 +199,9 @@ class Application(object):
         
 
     def chat_inscription(self):
-        niveau=["licence","doctorat","master"]
-        Licence=["smi","sma","smc","smp","svt"]
-        Master=["BIBDA","J2EE","TEST","MOBILE"]
+        niveau = ["licence","doctorat","master"]
+        Licence = ["smi","sma","smc","smp","svt"]
+        Master = ["BIBDA","J2EE","TEST","MOBILE"]
         self.lecture("je comprends que vous voulez faire une inscription à notre faculté")
         self.lecture("je vais vous montrer toutes les étape pour s'inscrire")
         self.lecture("veuillez d'abord m'indiquer au quelle niveau voulez vous s'inscrire ")
@@ -208,11 +211,11 @@ class Application(object):
         h=0
         self.lecture("----------")
         while n not in niveau:
-            h=h+1
+            h = h+1
             self.lecture("les données entrées ne sont pas correcte veuillez choisir l'une des inscription suivant:")
             self.lecture("licence      master      doctorat")
             
-            n=input()
+            n = input()
             if h>3:
                 self.lecture("Vous entrez toujours des données incorrectes")
                 break
@@ -249,26 +252,23 @@ class Application(object):
         self.timeBreak()
 
     def demande_stage(self, infstage):
-     
-        Dictionary={}
-        Dictionary["DebutStage"] = infstage['date_debut']
-        Dictionary["FineStage"] = infstage['date_fin']
-        Dictionary["NameMaster"] = infstage['specialite']
-        Dictionary["NameEntreprise"] = infstage['nom_entreprise']
-        Dictionary["NameEtudiant"] = infstage['nom_prenom']
-        Dictionary["date"] = date.today().strftime('%d/%m/%Y')
+        infstage["date"] = date.today().strftime('%d/%m/%Y')
         #lire le model
-        document = docx.Document("demande_de_stage.docx")
+        document = docx.Document("demandes/demande_de_stage.docx")
         for paragraph in document.paragraphs:
-            for key, val in Dictionary.items():
+            for key, val in infstage.items():
                 if(key in paragraph.text):
                     paragraph.text = paragraph.text.replace(key, val)
                     #self.lecture("*"+paragraph.text+"*")
-        document.save("demandes/demande_"+Dictionary["NameEtudiant"]+".docx")
-        self.lecture("vous trouverez votre demande sous le nom demande_"+Dictionary["NameEtudiant"])
+        document.save("demandes/Demande_de_stage_"+infstage["StudentName"]+".docx")
+        self.lecture("Votre demande a bien été envoyée")
+        self.lecture("Veuillez consulter votre boite mail")
         self.dstage = False
         self.infostage = dict()
         self.cptstage = 0
+        convert("demandes/Demande_de_stage_"+infstage["StudentName"]+".docx")
+        send = Send_email()
+        send.send(infstage["StudentName"],"Demande de stage", infstage["email"],"Demande_de_stage_"+infstage["StudentName"]+".pdf")
         self.timeBreak()
             
     def bag_of_words(self, s, words):
@@ -309,27 +309,32 @@ class Application(object):
             
             if(self.dstage == True):
                 if(self.cptstage==1):
-                    self.infostage['nom_prenom']=request
+                    self.infostage['StudentName']=request
                     self.cptstage = self.cptstage+1
                     self.lecture(request)
                     self.lecture("de quelle specialité s'agit il ?")
                 elif(self.cptstage==2):
-                    self.infostage['specialite']=request
+                    self.infostage['MasterName']=request
                     self.cptstage+=1
                     self.lecture(request)
                     self.lecture("la date du debut de votre stage")
                 elif(self.cptstage==3):                 
-                    self.infostage['date_debut']=request
+                    self.infostage['DebutStage']=request
                     self.cptstage+=1
                     self.lecture(request)
                     self.lecture("date de la fin de votre stage")
                 elif(self.cptstage==4):                  
-                    self.infostage['date_fin']=request
+                    self.infostage['FineStage']=request
                     self.cptstage+=1
                     self.lecture(request)
                     self.lecture("le nom de l'entreprise")
                 elif(self.cptstage==5):                    
-                    self.infostage['nom_entreprise']=request
+                    self.infostage['EntrepriseName']=request
+                    self.cptstage+=1
+                    self.lecture(request)
+                    self.lecture("Votre adresse email")
+                elif(self.cptstage==6):                    
+                    self.infostage['email']=request
                     self.cptstage+=1
                     self.lecture(request)
                     self.demande_stage(self.infostage)
@@ -346,15 +351,15 @@ class Application(object):
                     self.lecture(request)
                     self.lecture("Evaluation de votre ancienne université")
                 elif(self.cptadmission==3):                 
-                    self.infoadmission['University Rating']=[int(request)]
+                    self.infoadmission['le score de votre université']=[int(request)]
                     self.cptadmission+=1
                     self.lecture(request)
-                    self.lecture("la note SOP")
+                    self.lecture("La note de SOP")
                 elif(self.cptadmission==4):                  
                     self.infoadmission['SOR']=[float(request)]
                     self.cptadmission+=1
                     self.lecture(request)
-                    self.lecture("la note de lettre de motivation")
+                    self.lecture("La note de lettre de motivation")
                 elif(self.cptadmission==5):                    
                     self.infoadmission['LOR']=[float(request)]
                     self.cptadmission+=1
@@ -396,12 +401,12 @@ class Application(object):
                     elif tag=='demande':
                         self.dstage = True
                         if(self.cptstage==0):
-                            self.lecture("veuillez me donner d'abord votre nom")
+                            self.lecture("Veuillez me donner d'abord votre nom")
                             self.cptstage = self.cptstage+1
                     elif tag=='admission':
                         self.admission = True
                         if(self.cptadmission==0):
-                            self.lecture("veuillez me donner d'abord votre note GRE")
+                            self.lecture("Veuillez me donner d'abord votre note GRE")
                             self.cptadmission = self.cptadmission+1
     
                 elif request == ("Au revoir" or "à la prochaine" or "Bye" or "by" or "See you" or "so long"):
