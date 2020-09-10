@@ -16,6 +16,7 @@
 <p>This window show information about application</p>
 <img src="about.png">
 
+App video : <a href="https://www.linkedin.com/posts/mohamed-aghezzaf_smartchatbot-chatbot-python-activity-6709044049849937920-zRs1">Lien<a/> <br>
 ### Contact
 Linkedin: <a href="https://www.linkedin.com/in/mohamed-aghezzaf/">aghezzafmohamed<a/> <br>
 Gmail: aghe.mohamed@gmail.com
