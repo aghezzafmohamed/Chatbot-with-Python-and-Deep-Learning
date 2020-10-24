@@ -1,0 +1,14 @@
+docx==0.2.4
+docx2pdf==0.1.7
+gTTS==2.0.4
+gTTS-token==1.1.3
+PyAudio PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
+pygame==1.9.6
+PyQt5==5.15.1
+PyQt5-sip==12.8.1
+SpeechRecognition==3.8.1
+tensorflow==1.14.0
+tensorflow-estimator==1.14.0
+tflearn==0.3.2
+urllib3==1.23
+wrapt==1.12.1
